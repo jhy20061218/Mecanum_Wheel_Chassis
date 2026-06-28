@@ -37,122 +37,122 @@ uint8_t *Allocate_Tx_Data(CAN_HandleTypeDef *hcan, Enum_RM_Motor_ID Motor_ID)
                 {
                     tmp_tx_data_ptr = &(CAN1_0x200_Tx_Data[0]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x202):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x200_Tx_Data[2]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x203):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x200_Tx_Data[4]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x204):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x200_Tx_Data[6]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x205):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FF_Tx_Data[0]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x206):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FF_Tx_Data[2]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x207):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FF_Tx_Data[4]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x208):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FF_Tx_Data[6]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x209):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FE_Tx_Data[0]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x20A):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FE_Tx_Data[2]);
                 }
-            break;
+                break;
             case (RM_Motor_ID_0x20B):
                 {
                     tmp_tx_data_ptr = &(CAN1_0x1FE_Tx_Data[4]);
                 }
-            break;
+                break;
             default:
-            break;
+                break;
         }
     }
     else if (hcan->Instance == CAN2)
     {
         switch (Motor_ID)
         {
-        case (RM_Motor_ID_0x201):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[0]);
-            }
-            break;
-        case (RM_Motor_ID_0x202):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[2]);
-            }
-            break;
-        case (RM_Motor_ID_0x203):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[4]);
-            }
-            break;
-        case (RM_Motor_ID_0x204):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[6]);
-            }
-            break;
-        case (RM_Motor_ID_0x205):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[0]);
-            }
-            break;
-        case (RM_Motor_ID_0x206):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[2]);
-            }
-            break;
-        case (RM_Motor_ID_0x207):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[4]);
-            }
-            break;
-        case (RM_Motor_ID_0x208):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[6]);
-            }
-            break;
-        case (RM_Motor_ID_0x209):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[0]);
-            }
-            break;
-        case (RM_Motor_ID_0x20A):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[2]);
-            }
-            break;
-        case (RM_Motor_ID_0x20B):
-            {
-                tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[4]);
-            }
-            break;
-        default:
-            break;
+            case (RM_Motor_ID_0x201):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[0]);
+                }
+                break;
+            case (RM_Motor_ID_0x202):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[2]);
+                }
+                break;
+            case (RM_Motor_ID_0x203):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[4]);
+                }
+                break;
+            case (RM_Motor_ID_0x204):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x200_Tx_Data[6]);
+                }
+                break;
+            case (RM_Motor_ID_0x205):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[0]);
+                }
+                break;
+            case (RM_Motor_ID_0x206):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[2]);
+                }
+                break;
+            case (RM_Motor_ID_0x207):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[4]);
+                }
+                break;
+            case (RM_Motor_ID_0x208):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FF_Tx_Data[6]);
+                }
+                break;
+            case (RM_Motor_ID_0x209):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[0]);
+                }
+                break;
+            case (RM_Motor_ID_0x20A):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[2]);
+                }
+                break;
+            case (RM_Motor_ID_0x20B):
+                {
+                    tmp_tx_data_ptr = &(CAN2_0x1FE_Tx_Data[4]);
+                }
+                break;
+            default:
+                break;
         }
     }
     return tmp_tx_data_ptr;
