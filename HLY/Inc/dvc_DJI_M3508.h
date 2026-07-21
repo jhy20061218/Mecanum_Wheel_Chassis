@@ -6,7 +6,7 @@
 #define MOTOR_DJI_M3508_H
 
 #include "stm32f4xx_hal.h"
-#include "RM_motor_common.h"
+#include "drc_can.h"
 #include "alg_PID.h"
 
 /**

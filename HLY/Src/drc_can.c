@@ -1,7 +1,7 @@
 //
 // Created by 34285 on 2026/6/4.
 
-#include "RM_motor_common.h"
+#include "drc_can.h"
 
 Struct_CAN_Manage_Object CAN1_Manage_Object = {0};
 Struct_CAN_Manage_Object CAN2_Manage_Object = {0};

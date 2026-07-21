@@ -33,8 +33,10 @@ enable_language(C ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
-        HLY/Inc/Mecanum_Wheel_Chassis.h
-        HLY/Src/Mecanum_Wheel_Chassis.c)
+        HLY/Inc/alg_mecanum_wheel_chassis.h
+        HLY/Src/alg_mecanum_wheel_chassis.c
+        HLY/Inc/alg_torque_compensation.h
+        HLY/Inc/alg_spin_top.h)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
@@ -48,10 +50,10 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
         HLY/Src/alg_PID.c
-        HLY/Src/DJI_M3508.c
+        HLY/Src/dvc_DJI_M3508.c
         HLY/Src/drv_math.c
-        HLY/Src/RM_motor_common.c
-        HLY/Src/Mecanum_Wheel_Chassis.c
+        HLY/Src/drc_can.c
+        HLY/Src/alg_mecanum_wheel_chassis.c
 )
 
 # Add include paths

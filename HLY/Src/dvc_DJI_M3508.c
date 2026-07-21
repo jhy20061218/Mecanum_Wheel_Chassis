@@ -2,7 +2,7 @@
 // Created by 34285 on 2026/6/4.
 //
 
-#include "DJI_M3508.h"
+#include "dvc_DJI_M3508.h"
 
 /**
  * @brief 初始化M3508电机
