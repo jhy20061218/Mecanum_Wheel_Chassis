@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-//IMU物理量数据结构体(9轴数据，如果是6轴，不用管磁力计)
+//IMU物理量数据结构体
 typedef struct
 {
     //加速度计数据
@@ -19,10 +19,6 @@ typedef struct
     float Gyro_X;
     float Gyro_Y;
     float Gyro_Z;
-    //磁力计数据
-    float Mag_X;
-    float Mag_Y;
-    float Mag_Z;
     //欧拉角数据
     float Roll;
     float Pitch;
@@ -44,7 +40,7 @@ typedef struct
 {
     float Yaw;
     float Pitch;
-    // float Roll; // 步兵机器人云台一般没有Roll轴，如果有请取消注释
+    // float Roll; // RM机器人云台一般没有Roll轴，如果有请取消注释
 } Struct_Gimbal_Encoder_Data;
 
 Struct_Matrix Create_Matrix(int rows, int cols);
@@ -66,5 +62,7 @@ float Get_Chassis_Yaw_Relative_To_Slope(Struct_IMU_Data* imu_data);
 Struct_Matrix Multiply_Matrix(Struct_Matrix A, Struct_Matrix B);
 Struct_Matrix Get_Gimbal_Rotation_Matrix(Struct_IMU_Data* imu_data, Struct_Gimbal_Encoder_Data* encoder_data);
 
+Struct_Matrix Helper_Transpose_Matrix(Struct_Matrix mat);
+Struct_Matrix Helper_Cross_Product(Struct_Matrix a, Struct_Matrix b);
 
 #endif //ALL_DIRECTIONAL_WHEEL_CHASSIS_ROTATION_MATRIX_H

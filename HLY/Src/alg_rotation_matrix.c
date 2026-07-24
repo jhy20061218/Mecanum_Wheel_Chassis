@@ -350,3 +350,33 @@ Struct_Matrix Get_Gimbal_Rotation_Matrix(Struct_IMU_Data* imu_data, Struct_Gimba
     return G;
 }
 
+/**
+ * @brief 矩阵转置辅助函数 (云台逆向投影需用到)
+ */
+Struct_Matrix Helper_Transpose_Matrix(Struct_Matrix mat)
+{
+    Struct_Matrix res = Create_Matrix(mat.columns, mat.rows);
+    for (int i = 0; i < mat.rows; i++)
+    {
+        for (int j = 0; j < mat.columns; j++)
+        {
+            res.data[j * res.columns + i] = mat.data[i * mat.columns + j];
+        }
+    }
+    return res;
+}
+
+/**
+ * @brief 三维向量叉乘计算 c = a x b
+ */
+Struct_Matrix Helper_Cross_Product(Struct_Matrix a, Struct_Matrix b)
+{
+    Struct_Matrix res = Create_Matrix(3, 1);
+    if (a.rows == 3 && a.columns == 1 && b.rows == 3 && b.columns == 1)
+    {
+        res.data[0] = a.data[1] * b.data[2] - a.data[2] * b.data[1];
+        res.data[1] = a.data[2] * b.data[0] - a.data[0] * b.data[2];
+        res.data[2] = a.data[0] * b.data[1] - a.data[1] * b.data[0];
+    }
+    return res;
+}
