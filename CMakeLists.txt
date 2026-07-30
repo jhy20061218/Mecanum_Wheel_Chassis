@@ -53,7 +53,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         HLY/Src/alg_PID.c
         HLY/Src/dvc_DJI_M3508.c
         HLY/Src/drv_math.c
-        HLY/Src/drc_can.c
+        HLY/Src/drv_can.c
         HLY/Src/alg_mecanum_wheel_chassis.c
 )
 
