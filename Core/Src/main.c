@@ -191,10 +191,10 @@ int main(void)
   {
     Mecanum_Wheel_Inverse_Kinematics(&Mecanum_Chassis_Config, &Mecanum_Target_Velocity, &Mecanum_Wheel_Velocity);
 
-    DJI_M3508_Set_Target_Omega(&LF_M3508, Mecanum_Wheel_Velocity.LF);
-    DJI_M3508_Set_Target_Omega(&LB_M3508, Mecanum_Wheel_Velocity.LB);
-    DJI_M3508_Set_Target_Omega(&RB_M3508, Mecanum_Wheel_Velocity.RB);
-    DJI_M3508_Set_Target_Omega(&RF_M3508, Mecanum_Wheel_Velocity.RF);
+    DJI_M3508_Set_Target_Omega(&LF_M3508, - Mecanum_Wheel_Velocity.LF);
+    DJI_M3508_Set_Target_Omega(&LB_M3508, - Mecanum_Wheel_Velocity.LB);
+    DJI_M3508_Set_Target_Omega(&RB_M3508, - Mecanum_Wheel_Velocity.RB);
+    DJI_M3508_Set_Target_Omega(&RF_M3508, - Mecanum_Wheel_Velocity.RF);
 
     // DJI_M3508_Set_Target_Omega(&LF_M3508, 2.0f);
     // DJI_M3508_Set_Target_Omega(&LB_M3508, 2.0f);

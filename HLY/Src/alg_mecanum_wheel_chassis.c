@@ -44,7 +44,7 @@ void Mecanum_Wheel_Inverse_Kinematics(const Struct_Chassis_Config* config, const
     //严重警告：如果任一车轮转速超过电机物理极限而不做等比例缩放，底盘的受力合成将直接崩溃，导致不可预测的偏航甚至碰撞
     if (max_calc_omega > config->max_omega)
     {
-        float scale = - config->max_omega / max_calc_omega;
+        float scale = config->max_omega / max_calc_omega;
         output->LF *= scale;
         output->LB *= scale;
         output->RB *= scale;
@@ -54,7 +54,6 @@ void Mecanum_Wheel_Inverse_Kinematics(const Struct_Chassis_Config* config, const
 
 /**
  * @brief 麦克纳姆轮底盘逆动力学解算 (基于伪逆矩阵力矩分配)
- *
  * @param config 底盘物理参数 (致命警告：必须在原配置结构体中显式增加 max_torque，否则将引发灾难性的越界或编译失败)
  * @param target_force 期望的底盘三轴合力与力矩
  * @param output_torque 解算后的四轮电机扭矩输出
