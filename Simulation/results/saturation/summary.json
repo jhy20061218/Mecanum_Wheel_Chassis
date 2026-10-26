@@ -1,0 +1,23 @@
+{
+  "author": "JHY",
+  "data_source": "software_simulation",
+  "duration_s": 4,
+  "dt_s": 0.01,
+  "seed": 2026,
+  "samples": 400,
+  "rmse_position_m": 0.0446392576585,
+  "rmse_yaw_rad": 0.0213054521577,
+  "max_position_error_m": 0.0527780804326,
+  "maximum_temperature_C": 28.7169226204,
+  "maximum_wheel_speed_radps": 15.1512476385,
+  "maximum_control": 1,
+  "final_max_wheel_speed_radps": 15.0004082791,
+  "saturated_samples": 400,
+  "fault": "OK",
+  "fault_time_s": -1,
+  "dt_halving_position_difference_m": 0.00546940516415,
+  "dt_halving_yaw_difference_rad": 0.00231408189428,
+  "actual_final": [0.765628075162,2.67223073621,1.01981543023],
+  "reference_final": [0.736276663447,2.7160943932,1.04136148269],
+  "odometry_final": [0.767425907658,2.66498283909,1.01716755738]
+}

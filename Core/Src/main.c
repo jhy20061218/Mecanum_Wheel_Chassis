@@ -29,6 +29,7 @@
 #include "drv_can.h"
 #include "dvc_DJI_M3508.h"
 #include "alg_mecanum_wheel_chassis.h"
+#include "app_experiment.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,7 +65,7 @@ float LB_Omega = 0.0f;
 float RB_Omega = 0.0f;
 float RF_Omega = 0.0f;
 
-Struct_Chassis_Config Mecanum_Chassis_Config = {.a = 0.215f, .b = 0.2215f, .R = 0.077f, .max_omega = 15.0f};
+Struct_Chassis_Config Mecanum_Chassis_Config = {.a = 0.215f, .b = 0.2215f, .R = 0.077f, .max_omega = 15.0f, .max_torque = 2.5f};
 Struct_Target_Velocity Mecanum_Target_Velocity;
 Struct_Wheel_Velocity Mecanum_Wheel_Velocity;
 
@@ -80,11 +81,14 @@ void DJI_RM_CAN_Callback(Struct_CAN_Rx_Buffer *Rx_Buffer);
 /* USER CODE BEGIN 0 */
 void DJI_RM_CAN_Callback(Struct_CAN_Rx_Buffer *Rx_Buffer)
 {
+  if (Rx_Buffer->Header.IDE != CAN_ID_STD || Rx_Buffer->Header.RTR != CAN_RTR_DATA ||
+      Rx_Buffer->Header.DLC != 8) return;
   switch (Rx_Buffer->Header.StdId)
   {
     case (0x201):
       {
         DJI_M3508_CAN_RxCpltCallback(&LF_M3508, Rx_Buffer->Data);
+        Experiment_Feedback(0);
         LF_Omega = DJI_M3508_Get_Now_Omega(&LF_M3508);
         LF_Torque = DJI_M3508_Get_Now_Torque(&LF_M3508);
       }
@@ -92,6 +96,7 @@ void DJI_RM_CAN_Callback(Struct_CAN_Rx_Buffer *Rx_Buffer)
     case (0x202):
       {
         DJI_M3508_CAN_RxCpltCallback(&LB_M3508, Rx_Buffer->Data);
+        Experiment_Feedback(1);
         LB_Omega = DJI_M3508_Get_Now_Omega(&LB_M3508);
         LB_Torque = DJI_M3508_Get_Now_Torque(&LB_M3508);
       }
@@ -99,6 +104,7 @@ void DJI_RM_CAN_Callback(Struct_CAN_Rx_Buffer *Rx_Buffer)
     case (0x203):
       {
         DJI_M3508_CAN_RxCpltCallback(&RB_M3508, Rx_Buffer->Data);
+        Experiment_Feedback(2);
         RB_Omega = DJI_M3508_Get_Now_Omega(&RB_M3508);
         RB_Torque = DJI_M3508_Get_Now_Torque(&RB_M3508);
       }
@@ -106,6 +112,7 @@ void DJI_RM_CAN_Callback(Struct_CAN_Rx_Buffer *Rx_Buffer)
     case (0x204):
       {
         DJI_M3508_CAN_RxCpltCallback(&RF_M3508, Rx_Buffer->Data);
+        Experiment_Feedback(3);
         RF_Omega = DJI_M3508_Get_Now_Omega(&RF_M3508);
         RF_Torque = DJI_M3508_Get_Now_Torque(&RF_M3508);
       }
@@ -119,15 +126,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim->Instance == TIM8)
   {
-    DJI_M3508_TIM_Alive_PeriodElapsedCallback(&LF_M3508);
-    DJI_M3508_TIM_Alive_PeriodElapsedCallback(&LB_M3508);
-    DJI_M3508_TIM_Alive_PeriodElapsedCallback(&RB_M3508);
-    DJI_M3508_TIM_Alive_PeriodElapsedCallback(&RF_M3508);
-
-    DJI_M3508_TIM_PID_PeriodElapsedCallback(&LF_M3508);
-    DJI_M3508_TIM_PID_PeriodElapsedCallback(&LB_M3508);
-    DJI_M3508_TIM_PID_PeriodElapsedCallback(&RB_M3508);
-    DJI_M3508_TIM_PID_PeriodElapsedCallback(&RF_M3508);
+    Experiment_Control_1ms();
 
     TIM_CAN_PeriodElapsedCallback();
   }
@@ -169,8 +168,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim8);
-  CAN_Init(&hcan1, DJI_RM_CAN_Callback);
   DJI_M3508_Init(&hcan1, &LF_M3508, RM_Motor_ID_0x201, Control_Method_OMEGA, 3591.0f/187.0f, 2.5f);
   DJI_M3508_Init(&hcan1, &LB_M3508, RM_Motor_ID_0x202, Control_Method_OMEGA, 3591.0f/187.0f, 2.5f);
   DJI_M3508_Init(&hcan1, &RB_M3508, RM_Motor_ID_0x203, Control_Method_OMEGA, 3591.0f/187.0f, 2.5f);
@@ -183,30 +180,16 @@ int main(void)
            0.001f, 0.0f, 5.0f, 15.0f, 0.0f, 1);
   PID_Init(&RF_M3508.PID_Omega, 2000.0f, 0.0f, 0.0f, 0.0f, 8192.0f, 5000.0f,
            0.001f, 0.0f, 5.0f, 15.0f, 0.0f, 1);
+  Experiment_Init(&LF_M3508, &LB_M3508, &RB_M3508, &RF_M3508, &Mecanum_Chassis_Config);
+  CAN_Init(&hcan1, DJI_RM_CAN_Callback);
+  HAL_TIM_Base_Start_IT(&htim8);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    Mecanum_Wheel_Inverse_Kinematics(&Mecanum_Chassis_Config, &Mecanum_Target_Velocity, &Mecanum_Wheel_Velocity);
-
-    DJI_M3508_Set_Target_Omega(&LF_M3508, - Mecanum_Wheel_Velocity.LF);
-    DJI_M3508_Set_Target_Omega(&LB_M3508, - Mecanum_Wheel_Velocity.LB);
-    DJI_M3508_Set_Target_Omega(&RB_M3508, - Mecanum_Wheel_Velocity.RB);
-    DJI_M3508_Set_Target_Omega(&RF_M3508, - Mecanum_Wheel_Velocity.RF);
-
-    // DJI_M3508_Set_Target_Omega(&LF_M3508, 2.0f);
-    // DJI_M3508_Set_Target_Omega(&LB_M3508, 2.0f);
-    // DJI_M3508_Set_Target_Omega(&RB_M3508, 2.0f);
-    // DJI_M3508_Set_Target_Omega(&RF_M3508, 2.0f);
-    // HAL_Delay(5000);
-    //
-    // DJI_M3508_Set_Target_Omega(&LF_M3508, 15.0f);
-    // DJI_M3508_Set_Target_Omega(&LB_M3508, 15.0f);
-    // DJI_M3508_Set_Target_Omega(&RB_M3508, 15.0f);
-    // DJI_M3508_Set_Target_Omega(&RF_M3508, 15.0f);
-    // HAL_Delay(5000);
+    Experiment_Poll();
 
     /* USER CODE END WHILE */
 

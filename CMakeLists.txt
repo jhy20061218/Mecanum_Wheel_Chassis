@@ -33,11 +33,11 @@ enable_language(C ASM)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME}
-        HLY/Inc/alg_mecanum_wheel_chassis.h
-        HLY/Src/alg_mecanum_wheel_chassis.c
-        HLY/Inc/alg_torque_compensation.h
-        HLY/Inc/alg_spin_top.h
-        HLY/Src/alg_spin_top.c)
+        JHY/Inc/alg_mecanum_wheel_chassis.h
+        JHY/Src/alg_mecanum_wheel_chassis.c
+        JHY/Inc/alg_torque_compensation.h
+        JHY/Inc/alg_spin_top.h
+        JHY/Src/alg_spin_top.c)
 
 # Add STM32CubeMX generated sources
 add_subdirectory(cmake/stm32cubemx)
@@ -50,17 +50,18 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-        HLY/Src/alg_PID.c
-        HLY/Src/dvc_DJI_M3508.c
-        HLY/Src/drv_math.c
-        HLY/Src/drv_can.c
-        HLY/Src/alg_mecanum_wheel_chassis.c
+        JHY/Src/alg_PID.c
+        JHY/Src/dvc_DJI_M3508.c
+        JHY/Src/drv_math.c
+        JHY/Src/app_experiment.c
+        JHY/Src/drv_can.c
+        JHY/Src/alg_mecanum_wheel_chassis.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-        HLY/Inc
+        JHY/Inc
 )
 
 # Add project symbols (macros)
@@ -76,4 +77,10 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+)
+
+# newlib-nano excludes floating point formatting/parsing unless explicitly pulled in.
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
+    "LINKER:-u,_printf_float"
+    "LINKER:-u,_scanf_float"
 )

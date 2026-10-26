@@ -1,0 +1,10 @@
+# time_s,key,value; applied at first control boundary at/after time.
+3,vx,-0.2
+3,vy,0.3
+3,omega,-0.2
+6,vx,0.3
+6,vy,-0.2
+6,omega,0.25
+9,vx,0
+9,vy,0
+9,omega,0

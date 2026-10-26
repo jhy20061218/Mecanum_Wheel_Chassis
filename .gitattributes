@@ -1,0 +1,5 @@
+# Preserve generated simulation records byte-for-byte across Git checkouts.
+Simulation/results/** -text
+docs/*.sha256 -text
+# Two trailing spaces in Markdown intentionally represent a line break.
+*.md whitespace=-blank-at-eol

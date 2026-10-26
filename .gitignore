@@ -1,3 +1,11 @@
 /build/
-/cmake/
+/.idea/
+/build-cmake*/
+/Simulation/build/*
+!/Simulation/build/mecanum_sim.exe
+/Simulation/build-cmake*/
+__pycache__/
+*.pyc
+*.jhy-edit.tmp
+~$*
 

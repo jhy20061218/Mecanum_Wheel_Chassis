@@ -1,0 +1,57 @@
+{
+  "author": "JHY",
+  "verified_at": "2026-10-26T20:13:58.940420+08:00",
+  "data_source": "software_simulation",
+  "hardware_tested": false,
+  "scenarios": {
+    "default": {
+      "samples": 1200,
+      "columns": 50,
+      "fault": "OK",
+      "rmse_position_m": 0.0104054301192,
+      "csv_sha256": "af968cb5294ede9ab69920e248f761fa7b53d8c45b0888279df9e35e5c0e8d2e"
+    },
+    "slip": {
+      "samples": 1200,
+      "columns": 50,
+      "fault": "OK",
+      "rmse_position_m": 0.38568108871,
+      "csv_sha256": "f9802b43c9d7e0c2019c527d7491cf2613dee1c426ea1acc452c2b8959d0af0a"
+    },
+    "saturation": {
+      "samples": 400,
+      "columns": 50,
+      "fault": "OK",
+      "rmse_position_m": 0.0446392576585,
+      "csv_sha256": "8e3c370609c1cdde894435086f2619a4ee4daf2c9c11b59884c49e16d1ebf4fd"
+    },
+    "timeout": {
+      "samples": 600,
+      "columns": 50,
+      "fault": "FEEDBACK_TIMEOUT_LF",
+      "rmse_position_m": 0.741904199807,
+      "csv_sha256": "d4584334346df536e94cdb3b45c999abc4aa135c3908d9a89d814433d05bd918"
+    },
+    "overheat": {
+      "samples": 600,
+      "columns": 50,
+      "fault": "OVERHEAT_RF",
+      "rmse_position_m": 0.770706687766,
+      "csv_sha256": "0c6ec5e061fea70f65d89fb42e16e5e6c044f9c05b90f12d5506c4968c69792e"
+    },
+    "estop": {
+      "samples": 600,
+      "columns": 50,
+      "fault": "ESTOP",
+      "rmse_position_m": 0.770706687766,
+      "csv_sha256": "478bcf0f0c5b01ddcb8679f79af3f7f12b1303b382f2b62c3e7f63e188986abb"
+    }
+  },
+  "checks": {
+    "independent_assertions_passed": 55392,
+    "end_to_end_regression": "PASS: 82 end-to-end checks; artifacts: C:\\Users\\jhy_0\\Desktop\\�½��ļ��� (2)\\Mecanum_Wheel_Chassis\\Simulation\\build\\regression_3lacgld4",
+    "compilation_flags": "-std=c11 -O2 -Wall -Wextra -Wpedantic -Werror",
+    "control_output_on_every_fault_row": "zero for all four wheels",
+    "hardware_acquisition_script": "PowerShell syntax checked; no serial hardware connected"
+  }
+}
